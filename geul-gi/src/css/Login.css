@@ -1,0 +1,16 @@
+.Login{
+    display:flex;
+    width: 100%;
+    height : 100%;
+    background: url('../img/back_gradient.jpg');
+    align-items: center;
+}
+.Circle{
+    position: absolute;
+    top:50%;
+    left: 25px;
+    width : 25px;
+    height : 25px;
+    border-radius: 50%;
+    background-color: white;
+}
