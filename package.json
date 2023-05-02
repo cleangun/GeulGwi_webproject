@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "auth": "^0.0.9",
-    "styled-components": "^5.3.9"
-  }
-}

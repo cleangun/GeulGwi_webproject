@@ -1,7 +1,9 @@
+/* 로그인 페이지에서 가운데 폼 css */
 .LoginForm{
     display: flex;
     width : 50%;
-    min-width: 850px;
+    max-width: 850px;
+    min-width: 600px;
     height:  50%;
     background-color: white;
     border-radius: 16px;
@@ -9,6 +11,8 @@
     margin: 0 auto;
     align-items: center;
 }
+
+/* LoginForm의 왼쪽부분 */
 .LeftContainer{
     display : flex;
     align-items: center;
@@ -29,17 +33,37 @@
     padding : 0;
     margin : 0;
 }
-.RightContainer{
+/* ----------------------------------------------- */
+/* LoginForm의 오른쪽 부분 */
+
+/* 오른쪽 콘텐츠 Container */
+.RightContainer{ 
     display : flex;
+    flex-direction: column;
     width: 49.9%;
     height: 90%;
     align-items: center;
-
+    justify-content: center;
 }
-.RightContainer > .FormContentManage{
+/* 오른쪽 컨테이너s */
+/* 오른쪽 Input과 Button */
+.FormContentManage{
+    padding-top: 20px;
     width : 70%;
     margin : 0 auto;
 }
+/* 오른쪽 콘텐츠에 (아이디 비밀번호찾기 , 계정저장, 회원가입 ) */
+.sub_Container{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin-top: 10px;
+    padding : 0px 5px 0px 5px;
+}
+/* --------------------------------- */
+/* 오른쪽 Container들의 Contents */
+
+/* FormContentManage의 input태그 */
 .loginFormInput{
     /* border : 1px solid pink;
     transition : 1s; */
@@ -55,6 +79,7 @@
 .loginFormInput:focus{
     outline: 1px solid pink;
 }
+/* FormContentManage의 Button태그 */
 .loginFormButton{
     width : 97%; 
     height : 38px;
@@ -64,9 +89,14 @@
     color:white;
     cursor: pointer;
 }
-
 .loginFormButton:hover{
     color : black;
     border: 3px solid pink;
     background-color: white;
+}
+
+/* 오른쪽 sub-container내에 체크박스 사이즈 설정 */
+.sub_Container img{
+    width : 15px;
+    height : 15px;
 }
