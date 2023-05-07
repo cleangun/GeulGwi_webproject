@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import styled from 'styled-components';
+// component Import!
+import Header from './../common/header/Header';
+import LeftNavbar from './../common/left_nav/LeftNavbar';
+// src Import!
+import path from 'Img/back_gradient.jpg';
+
+
+// StyledComponent
+const HeadContainer = styled.div`
+    position : relative;
+    top : 0%;
+    width : 100%;
+    height : 500px;
+    /* background-image : url("img/back_gradient.jpg"); */
+`
 
 const Home = () => {
-    const [isLogged, setIsLogged] = useState(false)
+    const [isLogged, setIsLogged] = useState(true)
     return (
-        <div>
-            Here is the Home
+        <div style={{height : "1500px"}}>
+            <LeftNavbar />
+            <HeadContainer style={{backgroundImage : `url(${path})`}}>
+                <Header />
+            </HeadContainer>
             { isLogged?
-            '로그인페이지' : <h1><Navigate to="/user" replace={true}/></h1>
+            console.log(path) : <h1><Navigate to="/user" replace={true}/></h1>
                 
             }
             

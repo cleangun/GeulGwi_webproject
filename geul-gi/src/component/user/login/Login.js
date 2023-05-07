@@ -4,54 +4,62 @@ import LoginForm from "./LoginForm";
 import styled from "styled-components";
 
 
-const Circle=styled.div`
-    position: absolute;
-    top: 50%;
-    left: 25px;
-    width : 25px;
-    height : 25px;
-    border-radius: 50%;
-    background-color: white;
-
-    &:before{
-        content: "";
-        background-color: white;
-        border: 50%;
-        position : absolute;
-        left: 25px;
-        top : 50%;
-        opacity: 0;
-        animation: wave 3s 0s infinite linear;
-    }
-    
-    &:after{
-        content: "";
-        opacity: 0;
-        animation : wave 3s 1.5s infinite linear;
-    }
-
-    @keyframes wave {
-        0%{
-            scale: 100%;
-            opacity: 1;
-        }
-        100%{
-            scale: 500%;
-            opacity: 0;
-        }
-    }
-`
-
 const Login = () => {
     return (
-        <div className="Login">
-            <Circle>
-
-            </Circle>
+        <div className="Login" style={{overflow : "hidden"}}>
+            <Circle1 />
+            <Circle2 />
+            <Circle3 />
+            <Circle4 />
             <LoginForm/>
         </div>
         
     );
 };
 
+
+// StyleComponent CSS 
+const Circle_frame=styled.div`
+    width : 25px;
+    height : 25px;
+    border-radius: 50%;
+    background-color: white;
+    opacity: 0;
+
+    @keyframes wave{
+        0%{
+            scale: 100%;
+            opacity: 0.8;
+        }
+        40%{
+            opacity : 0.3;
+        }
+        100%{
+            scale: 2000%;
+            opacity: 0;
+        }
+    }
+`
+const L_Circle_frame=styled(Circle_frame)`
+    position: absolute;
+    bottom: -25px;
+    left: -25px;
+`
+const R_Circle_frame=styled(Circle_frame)`
+    position: absolute;
+    top: -25px;
+    right: -25px;
+`
+const Circle1=styled(L_Circle_frame)`
+    animation: wave 4s infinite linear;
+`
+const Circle2=styled(L_Circle_frame)`
+    animation: wave 4s infinite 0.5s linear;
+`
+const Circle3=styled(R_Circle_frame)`
+    animation: wave 4s infinite linear;
+`
+const Circle4=styled(R_Circle_frame)`
+    animation: wave 4s infinite 2s linear;
+`
 export default Login;

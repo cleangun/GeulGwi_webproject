@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
 
-const Main = () => {
+const MainRoute = () => {
     <BrowserRouter>
         <Routes>
-            
+            <Route path='/'></Route>
         </Routes>
     </BrowserRouter>
 };
 
-export default Main;
+export default MainRoute;
