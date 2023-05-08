@@ -1,6 +1,8 @@
 import React from 'react';
 import styled  from "styled-components";
 
+// Import React icons
+
 // Header를 나중에 수정하기 위해서 Style된 Tag로 만들어둠
 const Container = styled.div`
     width : 100%;
@@ -17,6 +19,10 @@ const TextContainer = styled.div`
     text-align: center;
     line-height: 70px;
 `
+const ItemContainer = styled.div`
+    
+`
+
 const Header = () => {
     return (
         <Container>
