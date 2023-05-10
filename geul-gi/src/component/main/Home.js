@@ -6,7 +6,7 @@ import Header from './../common/header/Header';
 import LeftNavbar from './../common/left_nav/LeftNavbar';
 
 // src Import!
-import path from 'Img/back_gradient.jpg';
+import path from 'img/back_gradient.jpg';
 
 const Home = () => {
     const [isLogged, setIsLogged] = useState(true)
@@ -21,9 +21,13 @@ const Home = () => {
                 <Header />
                 <RecomContainer >
                     {/* 추천글 타이틀 */}
-                    <span className='Recom_Title'>금일의 추천 글</span>
+                    <RecomTitle>금일의 추천 글</RecomTitle>
                     {/* 추천글 Contents */}
                     <RecomContentsContainer >
+                        <RecomContents_HeadContainer >
+                            
+                        </RecomContents_HeadContainer>
+
 
                     </RecomContentsContainer>
                 </RecomContainer>
@@ -38,25 +42,43 @@ const HeadContainer = styled.div`
     position : relative;
     top : 0%;
     width : 100%;
-    height : 400px;
+    height : 480px;
     
-    /* background-image : url("img/back_gradient.jpg"); */
+    /* background-image : url("i-mg/back_gradient.jpg"); */
 `
+const RecomTitle = styled.span`
+    display : inline-block;
+    color : white;
+    font-size : 17px;
+    font-weight : bold;
+    padding-bottom : 10px;
+    
+`
+
 // 추천 Container들
 const RecomContainer = styled.div`
     padding-top : 80px;
     width : 700px;
     height : 76%;
     background-color : rgba(255,255,255,0);
-    border : 2px solid white;
     margin : 0 auto;
+
 `
 const RecomContentsContainer = styled.div`
     width : calc(100% - 3px);
-    height : 150px;
+    height : 250px;
     background-color : rgba(255,255,255,0);
     border : 2px solid white;
     border-radius : 12px;
+    overflow: hidden;
+`
+const RecomContents_HeadContainer = styled.div`
+    position : relative;
+    top : 0;
+    left : 0;
+    width : 100%;
+    height : 35px;
+    background-color : white;
 `
 
 export default Home;
