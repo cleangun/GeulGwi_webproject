@@ -22,7 +22,7 @@ const LoginForm = () => {
         <div className="LoginForm">
                 <div className="LeftContainer">
                     <div className="TitleContainer">
-                        <h1><Link to="/">글 귀</Link></h1>
+                        <h1><Link to="/" style={{color : "black"}}>글 귀</Link></h1>
                         <h5>당신의 따뜻한 말을 담다</h5>
                     </div>
                 </div>

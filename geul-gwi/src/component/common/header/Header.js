@@ -15,18 +15,18 @@ const TextContainer = styled.div`
     margin : 0 auto;
     
     color : white;
-    font-size: x-large;
+    font-size: 30px;
     text-align: center;
     line-height: 70px;
 `
-const ItemContainer = styled.div`
+const IconContainer = styled.div`
     
 `
 
 const Header = () => {
     return (
         <Container>
-            <TextContainer>
+            <TextContainer style={{fontFamily : "Maru Buri", fontStyle : "semi-bold"}}>
                 글 귀
             </TextContainer>
         </Container>
