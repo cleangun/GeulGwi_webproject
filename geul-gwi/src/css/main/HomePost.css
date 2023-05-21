@@ -1,0 +1,36 @@
+*{
+    font-family: "Nanum Square Round";
+    font-style : "normal";
+    font-weight : "normal";
+}
+.user_name_text{
+    width : 100%;
+    height : 25px;
+    vertical-align: bottom;
+    color : rgb(5   8, 57, 57);
+    font-size : 16px;
+    font-weight : bold;
+}
+.user_intro_text{
+    width : 100%;
+    height : 25px;
+    color: grey;
+    font-size : 12px;
+}
+
+.content_img{
+    object-fit: cover;
+    object-position: center;
+    width : 100%;
+    height : 100%;
+    max-height : 450px;
+    margin : 0 auto;
+}
+.content_txt{
+    display : inline-block;
+    margin-top : 10px;
+    text-align : left;
+    font-size : 18px;
+    font-weight : bold;
+    border: 1px solid grey;;
+}

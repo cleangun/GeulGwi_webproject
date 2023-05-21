@@ -11,6 +11,8 @@ import path from 'img/back_gradient.jpg';
 
 const Home = () => {
     const [isLogged, setIsLogged] = useState(true)
+
+    const imagePath = process.env.PUBLIC_URL+'/img/';
     return (
         <div style={{height : "1500px"}}>
             { isLogged?
@@ -18,7 +20,8 @@ const Home = () => {
                 
             }
             <LeftNavbar />
-            <HeadContainer style={{backgroundImage : `url(${path})`, backgroundPosition : "center" , backgroundRepeat : "no-repeat"}}>
+            <HeadBackImg/>
+            <HeadContainer>
                 <Header />
                 <RecomContainer >
                     {/* 추천글 타이틀 */}
@@ -41,13 +44,37 @@ const Home = () => {
                 => 예를 들어) 기본적으로 최소 5개 콘텐츠를 보여주고, 스크롤 할 때마다 추가하는 식으로
                 => 아마 보이지 않는 게시글들은 자원을 효율적으로 사용하기 위해 활성화 되지 않다가 
                 => 다시 이전꺼를 보기 위해 활성화 시켜주는 식으로 */}
-                <HomePost/>
-                <HomePost/>
+                <HomePost profile={imagePath+'profile1.jpg'} name={'영원한 우정님'} intro={'너와 나는 언제나 함께야'}
+                    contentImage={imagePath+'content_img1.jpg'} 
+                    content={'너의 신념을 남에게 이해시키지 말아라,  너가 믿는 것보다 더 중요한 것은 없다'}
+                    tags={['위로','감성']}
+                />
+                <HomePost profile={imagePath+'profile2.jpg'} name={'안건'} intro={'감성 글 작가'}
+                    contentImage={imagePath+'content_img2.jpg'}
+                    content={"인공지능, AI를 하나의 생명으로 바라본 다면 어떨까, <br>\
+                    그들은 어떤 사람들에게는 그저 로봇에 불과할 수 있지만 \
+                    어떤 이들에게는 삶의 동반자다"}
+                    tags={['동기부여','새벽']}
+                />
             </MainContentsContainer>
 
         </div>
     );
 };
+const HeadBackImg = styled.div`
+    position : absolute;
+    width : 100%;
+    height : 650px;
+    top: 0;
+    left : 0;
+    
+    z-index: -1;
+    background-image: url(${path});
+    /* background-color : red;   */
+    background-position : "center";
+    background-repeat : "no-repeat";
+    background-size: cover;
+`
 
 // StyledComponent
 const HeadContainer = styled.div`
