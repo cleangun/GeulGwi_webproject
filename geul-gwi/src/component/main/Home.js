@@ -51,10 +51,13 @@ const Home = () => {
                 />
                 <HomePost profile={imagePath+'profile2.jpg'} name={'안건'} intro={'감성 글 작가'}
                     contentImage={imagePath+'content_img2.jpg'}
-                    content={"인공지능, AI를 하나의 생명으로 바라본 다면 어떨까, <br>\
-                    그들은 어떤 사람들에게는 그저 로봇에 불과할 수 있지만 \
-                    어떤 이들에게는 삶의 동반자다"}
+                    content={"인공지능, AI를 하나의 생명으로 바라본 다면 어떨까, \n 그들은 어떤 사람들에게는 그저 로봇에 불과할 수 있지만 \n 어떤 이들에게는 삶의 동반자다"}
                     tags={['동기부여','새벽']}
+                />
+                <HomePost profile={imagePath+'profile_cat.jpg'} name={'The_Love_creatures'} intro={'동물보호가'}
+                    contentImage={imagePath+'content_img5.jpg'}
+                    content={"우리가 짐승이라고 생각하는 동물또한 생각을 한다. \n 그들에게도 마음이 있고 생각이 있다 \n 이 세상에 친구가 될 수 없는 존재는 없다"}
+                    tags={['자연','동물','사랑']}
                 />
             </MainContentsContainer>
 
@@ -67,7 +70,6 @@ const HeadBackImg = styled.div`
     height : 650px;
     top: 0;
     left : 0;
-    
     z-index: -1;
     background-image: url(${path});
     /* background-color : red;   */

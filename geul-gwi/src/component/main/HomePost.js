@@ -4,9 +4,32 @@ import styled from 'styled-components';
 // css Import!
 import 'css/main/HomePost.css'
 
+// React icons
+import { AiOutlineLike , AiFillLike} from 'react-icons/ai'
+import { useState } from 'react';
+
+// Icon Path
+
+
 const HomePost = ({profile, name, intro, contentImage,content, tags}) => {
+    // Icon Path
+    const IconPath = process.env.PUBLIC_URL+'/icon/LikeBtn/'
+
+    const [LikeBtnClick, setLikeBtnClick] = useState(false)
+
+    function LikeClick(){
+        if (LikeBtnClick == false){
+            setLikeBtnClick(true)
+        }
+        else{
+            setLikeBtnClick(false)
+            
+        }
+    }
+
     return (
         <PostContainer>
+
             {/* 헤드영역 */}
             <PostHeadContainer>
                 <PostProfileContainer>
@@ -30,7 +53,19 @@ const HomePost = ({profile, name, intro, contentImage,content, tags}) => {
 
             {/* 좋아요 버튼, 태그 */}
             <PostBtnTagContainer>
+                <TagContainer>
 
+                </TagContainer>
+                
+                <input id="likeContainer "type='checkbox'/>
+                <LikeBtnContainer onClick={() => LikeClick()}>
+                    {/* {LikeBtnClick ? <AiFillLike size={24} color={'#fa4a3d'} /> : <AiOutlineLike size={24} /> } */}
+                    <label class='likeBtnlabel' for="likeContainer" onClick={() => LikeClick()}>
+                        {LikeBtnClick ? <img class='likeBtn' src={IconPath + 'likeSolid.png'}/> : <img class='likeBtn' src={IconPath + 'likeRegular.png'} />}
+                    </label>
+
+                    
+                </LikeBtnContainer>
             </PostBtnTagContainer>
         </PostContainer>
     );
@@ -71,12 +106,38 @@ const PostContentsContainer = styled.div`
 `
 // 게시글 아래 : 태그 , 좋아요 버튼 Container
 const PostBtnTagContainer = styled.div`
+    position : relative;
     width : 100%;
     height : 40px;
     border : 1px solid grey;
 `
+// Tag Container
+const TagContainer = styled.div`
+    position : absolute;
+    left: 0px;
+    top : 0px;
+    width : 66%;
+    height : 100%;
+    background-color : grey;
+`
+// Like Container
+const LikeBtnContainer = styled.div`
+    position : absolute;
+    display : flex;
+    right : 0px;
+    bottom : 0px;
+    width : 40px;
+    height : 40px;
+    border:  1px solid blue;
+
+    align-items : center;
+    justify-content : center;
+    cursor : pointer;
+`
+
 // 게시글 프로필 Container
 const PostProfileContainer = styled.div`
+    
     width : 50px;
     height : 50px;
     border-radius : 70%;

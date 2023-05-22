@@ -2,6 +2,7 @@
     font-family: "Nanum Square Round";
     font-style : "normal";
     font-weight : "normal";
+    white-space: pre-wrap;
 }
 .user_name_text{
     width : 100%;
@@ -27,10 +28,33 @@
     margin : 0 auto;
 }
 .content_txt{
+    width : 100%;
     display : inline-block;
     margin-top : 10px;
     text-align : left;
-    font-size : 18px;
-    font-weight : bold;
-    border: 1px solid grey;;
+    font-size : 16px;
+    font-weight : normal;
+    line-height : 35px;
+}
+.likeBtnlabel{
+    width : 20px;
+    height : 20px;
+}
+.likeBtnlabel:checked{
+    animation : likeClick 0.5 ease-in-out;
+}
+@keyframes likeClick {
+    0%{
+        transform : none;
+    }
+    50%{
+        transform: scale(2,2);
+    }
+    100%{
+        transform : none;
+    }
+}
+.likeBtn{
+    width : 20px;
+    height : 20px;
 }
