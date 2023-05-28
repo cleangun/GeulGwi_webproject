@@ -9,7 +9,7 @@ const RootRoute = () => {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home />}></Route>
-                <Route path='/user' element={<User />}></Route>
+                <Route path='/user/*' element={<User />}></Route>
                 <Route path='/main/*' element={<MainRoute />}></Route>
             </Routes>
         </BrowserRouter>
