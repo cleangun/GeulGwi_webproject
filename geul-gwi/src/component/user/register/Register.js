@@ -107,9 +107,18 @@ const Register = () => {
 
     // 아이디 유효성 검사
     const CheckIdExist = (event) => {
-        axios.post(AxiosAddress,userId)
+        const data = {
+            userId : Id
+        }
+        axios.get(AxiosAddress,data)
         .then((response) => {
             console.log("CheckId Axios Success");
+            if (response == true){
+                console.log("id available");
+            }
+            else if (response == false) {
+                console.log("id exist");
+            }
         })
         .catch((error) => {
             console.log(error);
