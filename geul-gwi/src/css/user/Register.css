@@ -21,3 +21,16 @@ label {
     color : grey;
     width : 67%;
 }
+
+.box1Show{
+    left : 0%;
+}
+.box1Hide{
+    left : -100%;
+}
+.box2Show{
+    left : 0%;
+}
+.box2Hide{
+    left : 100%;
+}
