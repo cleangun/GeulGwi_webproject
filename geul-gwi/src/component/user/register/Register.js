@@ -1,17 +1,23 @@
-import { React , useState } from 'react';
+import { React, useState, useContext } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-
+// Axios Address Context
+import { AxiosAddrContext } from 'contextStore/AxiosAddress';
 // css import
 import 'css/user/Register.css'
 
 // React-icons import
-
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom/';
 
 const Register = () => {
+    // navigate
+    const navigate = useNavigate();
+    
     // Axios Address
-    const [AxiosAddress,SetAxiosAddress] = useState("http://172.16.113.198:8080/users/join");
+    const [AxiosAddress,SetAxiosAddress] = useState(useContext(AxiosAddrContext).axiosAddr);
+    const [RequestMapping , SetRequestMapping] = useState('users/join');
+    
     // State값들
     const [Id, setId] = useState("");
     const [Password, setPassword] = useState("");
@@ -20,7 +26,7 @@ const Register = () => {
     const [Name, setName] = useState("");
     const [Email, setEmail] = useState("");
     const [Age, setAge] = useState("");
-    const [Gender, setGender] = useState("");
+    const [Gender, setGender] = useState("Male");
     
     // onChangeHandler
     const onIdHandler = (event) => {
@@ -52,7 +58,7 @@ const Register = () => {
     // 회원가입 Submit
     const onSubmitHandler = (event) => {
         event.preventDefault();
-
+        console.log("axios addr : "+ AxiosAddress + RequestMapping);
         console.log("axios shoot");
 
         const data = {
@@ -64,16 +70,21 @@ const Register = () => {
             userGender : Gender,
             userEmail : Email
         }
-        console.log("data : "+data.userGender);
-        axios.post(AxiosAddress, data)
+        console.log(Id);
+        console.log(Password);
+        console.log(NickName);
+        console.log(Name);
+        console.log(Age);
+        console.log(Gender);
+        console.log(Email);
+        axios.post(AxiosAddress+RequestMapping, data)
             .then((response) => {
-                console.log("response => ");
-                console.log(response);
                 console.log(response.data);
-                
+                navigate('/user/login');
             })
             .catch(function(error){
-                console.log(error)
+                console.log(error);
+                navigate('/user/login');
             });
     }
     
@@ -129,6 +140,7 @@ const Register = () => {
 
 
     return (
+        
         <RegiContainer>
             <PrivacyContainer className={Box1_showHide}>
                 <form style={{display: 'flex' , flexDirection : 'column', width  : '400px', height : '100%', margin : '0 auto'}} onSubmit={onSubmitHandler}>
@@ -166,22 +178,7 @@ const Register = () => {
                 'column', width  : '400px', height : '100%', margin : '0 auto'}} onSubmit={onSubmitHandler}>
                     <h3 className='title'>태그 선택</h3>
                     <h5 className='sub_title'>선호하시는 태그를 선택하시면 됩니다.</h5>
-                    <label>아이디</label>
-                    <input type='text' value={Id} onChange={onIdHandler}/>
-                    <label>비밀번호</label>
-                    <input type='password' value={Password} onChange={onPasswordHandler}/>
-                    <label>비밀번호 확인</label>
-                    <input type='password' value={ConfirmPassword} onChange={onConfirmPasswordHandler}/>
-                    <label>닉네임</label>
-                    <input type='text' value={NickName} onChange={onNickNameHandler}/>
-                    <label>이름</label>
-                    <input type='text' value={Name} onChange={onNameHandler}/>
-                    <label>이메일</label>
-                    <input type='email' value={Email} onChange={onEmailHandler}/>
-                    <label>나이</label>
-                    <input type='number' value={Age} onChange={onAgeHandler}/>
-                    <label>성별</label>
-                    <input type='select' value={Gender} onChange={onGenderHandler}/>
+                    
 
 
                     <SubmitButton onClick={onSubmitHandler}>
@@ -250,6 +247,7 @@ const BackButton = styled.button`
     background-color : white;
     cursor : pointer;
 `
+
 
 
 

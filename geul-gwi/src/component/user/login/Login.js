@@ -1,16 +1,19 @@
 import React from "react";
 import '../../../css/Login.css'
-import LoginForm from "./LoginForm";
 import styled from "styled-components";
 
+// component Import
+import Register from "../register/Register";
+import LoginForm from "./LoginForm";
 
-const Login = () => {
+const Login = (action) => {
     return (
         <div className="Login" style={{overflow : "hidden"}}>
             <Circle1 />
             <Circle2 />
             <Circle3 />
             <Circle4 />
+            action ? <LoginForm /> : <Register />
             <LoginForm/>
         </div>
         
