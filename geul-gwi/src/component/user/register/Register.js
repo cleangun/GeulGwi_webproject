@@ -9,6 +9,7 @@ import 'css/user/Register.css'
 // React-icons import
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom/';
+import { faLastfmSquare } from '@fortawesome/free-brands-svg-icons';
 
 const Register = () => {
     // navigate
@@ -16,7 +17,8 @@ const Register = () => {
     
     // Axios Address
     const [AxiosAddress,SetAxiosAddress] = useState(useContext(AxiosAddrContext).axiosAddr);
-    const [RequestMapping , SetRequestMapping] = useState('users/join');
+    // RequestMappings
+    const JoinRequest = 'users/join';
     
     // State값들
     const [Id, setId] = useState("");
@@ -34,7 +36,8 @@ const Register = () => {
     }
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value);
-    }
+    } 
+
     const onConfirmPasswordHandler = (event) => {
         setConfirmPassword(event.currentTarget.value);
     }
@@ -58,7 +61,7 @@ const Register = () => {
     // 회원가입 Submit
     const onSubmitHandler = (event) => {
         event.preventDefault();
-        console.log("axios addr : "+ AxiosAddress + RequestMapping);
+        console.log("axios addr : "+ AxiosAddress + JoinRequest);
         console.log("axios shoot");
 
         const data = {
@@ -70,21 +73,15 @@ const Register = () => {
             userGender : Gender,
             userEmail : Email
         }
-        console.log(Id);
-        console.log(Password);
-        console.log(NickName);
-        console.log(Name);
-        console.log(Age);
-        console.log(Gender);
-        console.log(Email);
-        axios.post(AxiosAddress+RequestMapping, data)
+        axios.post(AxiosAddress+JoinRequest, data)
             .then((response) => {
                 console.log(response.data);
                 navigate('/user/login');
             })
             .catch(function(error){
                 console.log(error);
-                navigate('/user/login');
+                alert("예기치 못한 오류가 발생하였습니다.");        // 나중에 오류 처리 해줄 것
+                navigate('/user/register');
             });
     }
     
@@ -117,30 +114,70 @@ const Register = () => {
     }
 
     // 아이디 유효성 검사
-    const CheckIdExist = (event) => {
-        const data = {
-            userId : Id
+    const CheckIdExist = () => {
+        let result = false;
+
+        // Axios 연결
+
+        // axios.post(AxiosAddress,{userid : Id})
+        // .then((response) => {
+        //     console.log("CheckId Axios Success");
+        //     result = response
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        //     alert("IdCheck Axios Error");
+        // })
+        let CheckText = document.getElementById("idCheck");
+        if (result == true){
+            CheckText.innerHTML = "사용 가능합니다";
+            CheckText.style.color = "green";
         }
-        axios.get(AxiosAddress,data)
-        .then((response) => {
-            console.log("CheckId Axios Success");
-            if (response == true){
-                console.log("id available");
-            }
-            else if (response == false) {
-                console.log("id exist");
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        else{
+            CheckText.innerHTML = "이미 존재합니다";
+            CheckText.style.color = "red";
+        }
+    }
+
+    // 비밀번호 패턴 체크
+    const CheckPwdRule = () => {
+        // let result = true;
+        // let CheckText = document.getElementById("pwdCheck");
+        // let special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+        // if (Password.search(/\s/) != -1){
+        //     CheckText.innerHTML = "공백이 포함되어있습니다."
+        //     CheckText.style.color  = "red";
+        // }
+        // else if(){
+
+        // }
+
+        // if (result == true){
+        //     CheckText.innerHTML = "사용 가능합니다";
+        //     CheckText.style.color = "green";
+        // }
+        // else{
+        //     CheckText.innerHTML = "이미 존재합니다";
+        //     CheckText.style.color = "red";
+        // }
+    }
+    // 비밀번호 Confirm 확인
+    const CheckPwdConfirm = () => {
+        let pwdConfirm = document.getElementById("pwdConfirm");
+        if (Password == ConfirmPassword){
+            pwdConfirm.innerHTML = "비밀번호가 일치합니다";
+            pwdConfirm.style.color = "green";
+        }
+        else{
+            pwdConfirm.innerHTML = "비밀번호가 일치하지 않습니다";
+            pwdConfirm.style.color = "red";
+        }
     }
 
 
 
 
     return (
-        
         <RegiContainer>
             <PrivacyContainer className={Box1_showHide}>
                 <form style={{display: 'flex' , flexDirection : 'column', width  : '400px', height : '100%', margin : '0 auto'}} onSubmit={onSubmitHandler}>
@@ -148,23 +185,40 @@ const Register = () => {
                     <h5 className='sub_title'>회원정보를 입력해주세요</h5>
                     <label>아이디</label>
                     <input type='text' value={Id} onChange={onIdHandler} onMouseOut={CheckIdExist} placeholder='아이디를 입력'/>
+                    <ShowText id='idCheck'></ShowText>
+
                     <label>비밀번호</label>
-                    <input type='password' value={Password} onChange={onPasswordHandler} placeholder='비밀번호 입력'/>
+                    <input type='password' value={Password} onChange={onPasswordHandler} placeholder='대문자 1개, 특수문자 1개이상 포함해주세요'/>
+                    <ShowText id='pwdCheck'></ShowText>
+                    
                     <label>비밀번호 확인</label>
-                    <input type='password' value={ConfirmPassword} onChange={onConfirmPasswordHandler} placeholder='비밀번호 확인'/>
+                    <input type='password' value={ConfirmPassword} onChange={onConfirmPasswordHandler} placeholder='비밀번호 확인'
+                    onMouseOut={CheckPwdConfirm}
+                    />
+                    <ShowText id='pwdConfirm'></ShowText>
+
                     <label>닉네임</label>
                     <input type='text' value={NickName} onChange={onNickNameHandler} placeholder='닉네임 입력'/>
+                    <ShowText id='nicknameCheck'></ShowText>
+
                     <label>이름</label>
                     <input type='text' value={Name} onChange={onNameHandler} placeholder='이름 입력'/>
-                    <label>이메일</label>
-                    <input type='email' value={Email} onChange={onEmailHandler} placeholder='이메일 입력'/>
+                    <ShowText></ShowText>
+
                     <label>나이</label>
                     <input type='number' value={Age} onChange={onAgeHandler} placeholder='나이 입력'/>
+                    <ShowText></ShowText>
+
                     <label>성별</label>
                     <select id='gender_input' onChange={onGenderHandler}>
                         <option value={'Male'}>남성</option>
                         <option value={'FeMale'}>여성</option>
                     </select>
+                    <ShowText></ShowText>
+
+                    <label>이메일</label>
+                    <input type='email' value={Email} onChange={onEmailHandler} placeholder='이메일 입력'/>
+                    <ShowText></ShowText>
 
                     <NextButton onClick={ToggleMove}>
                         다음
@@ -194,15 +248,30 @@ const RegiContainer = styled.div`
     position : relative;
     display : flex;
     width : 600px;
-    height : auto;
-    min-height : 870px;
+    height : 80%;
     justify-content: center;
-    overflow : hidden;
+    /* overflow: scroll; */
+    overflow : scroll;
+    overflow-x : hidden;
     margin : 0 auto;
     margin-top : calc((100vh - 870px)/2);
 
     border : 1px solid grey;
     border-radius : 8px;
+    background-color : white;
+
+    &::-webkit-scrollbar{
+        border-radius : 10px;
+        background-color : white;
+    }
+    &::-webkit-scrollbar-thumb{
+        border-radius : 10px;
+        background-color: pink;
+    }
+    &::-webkit-scrollbar-track{
+        border-radius : 10px;
+        background-color : grey;
+    }
 `
 const PrivacyContainer = styled.div`
     position : absolute;
@@ -225,6 +294,8 @@ const NextButton = styled.button`
     border-radius : 12px;
     border : none;
     margin : 0 auto;
+    margin-top : 15px;
+    margin-bottom : 15px;
     cursor : pointer;
     &:hover{
         border : 2px solid black;
@@ -247,6 +318,19 @@ const BackButton = styled.button`
     background-color : white;
     cursor : pointer;
 `
+
+// 유효성 검사 결과 표시를 위한 Container
+const ShowText = styled.div`
+    display : inline-block;
+    width : 100%;
+    height : 30px;
+    padding-left : 6px;
+    padding-top : 2px;
+    /* align-items: center; */
+    text-align : right;
+    font-size : 12px;
+`
+
 
 
 

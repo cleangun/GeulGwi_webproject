@@ -3,18 +3,18 @@ import '../../../css/Login.css'
 import styled from "styled-components";
 
 // component Import
-import Register from "../register/Register";
+import Register from "component/user/register/Register";
 import LoginForm from "./LoginForm";
 
-const Login = (action) => {
+const UserForm = (props) => {
     return (
         <div className="Login" style={{overflow : "hidden"}}>
             <Circle1 />
             <Circle2 />
             <Circle3 />
             <Circle4 />
-            action ? <LoginForm /> : <Register />
-            <LoginForm/>
+            {/* <Register /> */}
+            {props.action ? <LoginForm /> : <Register />}
         </div>
         
     );
@@ -65,4 +65,4 @@ const Circle3=styled(R_Circle_frame)`
 const Circle4=styled(R_Circle_frame)`
     animation: wave 4s infinite 2s linear;
 `
-export default Login;
+export default UserForm;
