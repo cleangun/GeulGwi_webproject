@@ -11,6 +11,10 @@ import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom/';
 import { faLastfmSquare } from '@fortawesome/free-brands-svg-icons';
 
+// Import Component
+import TagButton from './TagButton';
+
+
 const Register = () => {
     // navigate
     const navigate = useNavigate();
@@ -173,14 +177,67 @@ const Register = () => {
             pwdConfirm.style.color = "red";
         }
     }
+    // 닉네임 중복 체크
+    const NickNameCheck = () => {
+        let result = true;
+        let NickChkMapping = "users/nickChk";
+        let nickCheck = document.getElementById("nicknameCheck");
+        axios.post(AxiosAddress+NickChkMapping,{userNickname : NickName})
+        .then((response) => {
+            console.log("axios NickName Check Success");
+            result = response;
+        })
+        .catch((error) => {
+            console.log("Axios Error");
+        })
+
+        if (result == true){
+            nickCheck.innerHTML = "닉네임 사용가능합니다";
+            nickCheck.style.color = "green";
+        }
+        else{
+            nickCheck.innerHTML = "이미 닉네임이 존재합니다";
+            nickCheck.style.color = "red";
+        }
+    }
 
 
 
+    // 태그 버튼 생성 List
+    let TagList = [];
+    TagList.push({"fontColor" : "white", "backColor" : "FFA67E", "value" : "감성"});
+    TagList.push({"fontColor" : "white", "backColor" : "E57EFF", "value" : "깨달음"});
+    TagList.push({"fontColor" : "white", "backColor" : "#FBD929", "value" : "위로"});
+    TagList.push({"fontColor" : "white", "backColor" : "#FF867E", "value" : "동기부여"});
+    TagList.push({"fontColor" : "white", "backColor" : "#7EFFAA", "value" : "감사"});
+    TagList.push({"fontColor" : "white", "backColor" : "#A8FF7E", "value" : "시"});
+    TagList.push({"fontColor" : "white", "backColor" : "#84B5FF", "value" : "현실직시"});
+    TagList.push({"fontColor" : "white", "backColor" : "#A8FF7E", "value" : "자연"});
+    TagList.push({"fontColor" : "white", "backColor" : "#0E2D5C", "value" : "명언"});
+    TagList.push({"fontColor" : "white", "backColor" : "#CBC6C3", "value" : "소설속명언"});
+    TagList.push({"fontColor" : "white", "backColor" : "#FC3131", "value" : "열정"});
+    TagList.push({"fontColor" : "white", "backColor" : "#FF5252", "value" : "사랑"});
+
+    // 태그 클릭 처리
+    const TagClick = (e) => {
+        let selectedId = e.target.id;
+        let selectedTag = document.getElementById("tag"+selectedId);
+        console.log("clicked idx : "+selectedId);
+        if (selectedTag.style.opacity !== 1){
+            selectedTag.style.opacity = 1;
+        }
+        else{
+            selectedTag.style.opacity = 0.7;
+        }
+        // TagClick[idx].value
+    }
+
+    
 
     return (
         <RegiContainer>
             <PrivacyContainer className={Box1_showHide}>
-                <form style={{display: 'flex' , flexDirection : 'column', width  : '400px', height : '100%', margin : '0 auto'}} onSubmit={onSubmitHandler}>
+                <div style={{display: 'flex' , flexDirection : 'column', width  : '400px', height : '100%', margin : '0 auto'}}>
                     <h3 className='title'>회원가입</h3>
                     <h5 className='sub_title'>회원정보를 입력해주세요</h5>
                     <label>아이디</label>
@@ -198,7 +255,7 @@ const Register = () => {
                     <ShowText id='pwdConfirm'></ShowText>
 
                     <label>닉네임</label>
-                    <input type='text' value={NickName} onChange={onNickNameHandler} placeholder='닉네임 입력'/>
+                    <input type='text' value={NickName} onChange={onNickNameHandler} placeholder='닉네임 입력' onMouseOut={NickNameCheck}/>
                     <ShowText id='nicknameCheck'></ShowText>
 
                     <label>이름</label>
@@ -223,8 +280,7 @@ const Register = () => {
                     <NextButton onClick={ToggleMove}>
                         다음
                     </NextButton>
-
-                </form>
+                </div>
             </PrivacyContainer>
             <TagSelectContainer className={Box2_showHide}>
                 <BackButton onClick={ToggleMove}><MdOutlineArrowBackIosNew size={'20px'}/></BackButton>
@@ -233,6 +289,13 @@ const Register = () => {
                     <h3 className='title'>태그 선택</h3>
                     <h5 className='sub_title'>선호하시는 태그를 선택하시면 됩니다.</h5>
                     
+                    <TagsContainer>
+                        {TagList.map((element,idx) => (
+                            <TagButton id={"tag"+idx} fontColor={element.fontColor} backColor = {element.backColor} value = {element.value} 
+                            widthPercentage = {Math.random() * (1 + 1 - 0.85) + 0.85} onClick={TagClick}
+                            />
+                        ))}
+                    </TagsContainer>
 
 
                     <SubmitButton onClick={onSubmitHandler}>
@@ -253,24 +316,25 @@ const RegiContainer = styled.div`
     /* overflow: scroll; */
     overflow : scroll;
     overflow-x : hidden;
+    scroll-behavior: smooth;
     margin : 0 auto;
     margin-top : calc((100vh - 870px)/2);
 
-    border : 1px solid grey;
     border-radius : 8px;
     background-color : white;
 
     &::-webkit-scrollbar{
         border-radius : 10px;
         background-color : white;
+        width : 10px;
     }
     &::-webkit-scrollbar-thumb{
-        border-radius : 10px;
+        border-radius : 4px;
         background-color: pink;
     }
     &::-webkit-scrollbar-track{
-        border-radius : 10px;
-        background-color : grey;
+        border-radius : 4px;
+        background-color : white;
     }
 `
 const PrivacyContainer = styled.div`
@@ -296,15 +360,17 @@ const NextButton = styled.button`
     margin : 0 auto;
     margin-top : 15px;
     margin-bottom : 15px;
+    color : white;
     cursor : pointer;
+    transition : 0.2s;
     &:hover{
-        border : 2px solid black;
+        transition : 0.2s;
+        color : black;
+        border : 4px solid pink;
         background-color : white;
     }
 `
-const SubmitButton = styled(NextButton)`
-    
-`
+const SubmitButton = styled(NextButton)``
 const BackButton = styled.button`
     position : absolute;
     top : 0px;
@@ -331,7 +397,14 @@ const ShowText = styled.div`
     font-size : 12px;
 `
 
-
+// 태그들을 담을 Flex Container
+const TagsContainer = styled.div`
+    display : flex;
+    flex-wrap : wrap;
+    flex-direction : row;
+    width : 100%;
+    height : auto;
+`
 
 
 
